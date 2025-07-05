@@ -1,0 +1,26 @@
+# Visual Studio build artifacts
+*.ilk
+*.log
+*.tlog
+*.user
+*.exe
+*.obj
+*.pdb
+*.ipch
+*.idb
+*.aps
+*.suo
+*.sdf
+*.cache
+*.db
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+
+# Folders to ignore
+x64/
+Debug/
+Release/
+
+# Visual Studio cache folder
+.vs/
