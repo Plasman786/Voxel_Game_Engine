@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependancies\glew-2.1.0\include;$(SolutionDir)Dependancies\glfw-3.3.10\include;$(SolutionDir)Dependancies\glfw-3.3.10\deps;$(SolutionDir)GraphicsEngine;C:\Users\ventr\source\asio-1.30.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependancies\glew-2.1.0\include;$(SolutionDir)Dependancies\glfw-3.3.10\include;$(SolutionDir)Dependancies\glfw-3.3.10\deps;$(SolutionDir)GraphicsEngine\;$(SolutionDir)Dependancies\asio-1.30.2\include;src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependancies\glew-2.1.0\include;$(SolutionDir)Dependancies\glfw-3.3.10\include;$(SolutionDir)Dependancies\glfw-3.3.10\deps;$(SolutionDir)GraphicsEngine;C:\Users\ventr\source\asio-1.30.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependancies\glew-2.1.0\include;$(SolutionDir)Dependancies\glfw-3.3.10\include;$(SolutionDir)Dependancies\glfw-3.3.10\deps;$(SolutionDir)GraphicsEngine\;$(SolutionDir)Dependancies\asio-1.30.2\include;src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

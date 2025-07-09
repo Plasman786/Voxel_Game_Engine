@@ -86,6 +86,10 @@ int main() {
 	vb.Bind();
 	va.AddArrayBuffer(layout);
 	IndexBuffer ib(indices, sizeof(indices) / sizeof(unsigned int)); //<----------------------------------------------//Index Buffer Call//------
+
+	glm::mat4 proj = glm::ortho(-1.0f,1.0f,-1.0f,1.0f,-1.0f,1.0f);
+
+
 	Shader shader("basicShader.shader");
 	shader.Bind();
 	float b = 0.0f;
@@ -95,6 +99,8 @@ int main() {
 	float incrementr = 0.03f;
 	float incrementg = 0.05f;
 	shader.SetUniform4f("u_Color", b, r, g, 1.0f);
+	shader.SetUniformMat4f("u_MVP", proj);
+
 
 	Texture texture("Grass_Block_Sides.png");
 	texture.Bind();

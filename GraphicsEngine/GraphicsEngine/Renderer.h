@@ -1,11 +1,17 @@
 #pragma once
+#define GLFW_INCLUDE_NONE
+#include <GL/glew.h>      // Or glad, not both
+#include <GLFW/glfw3.h>   // Always after glew/glad
+
+// Include glm AFTER OpenGL stuff
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <iostream>
-#include "GL/glew.h"
-#include <GLFW/glfw3.h>
 #include <fstream>
 #include <string>
 #include <sstream>
