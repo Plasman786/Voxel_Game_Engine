@@ -3,13 +3,13 @@
 static void print(std::string text) {
 	std::cout << text << std::endl;
 }
-unsigned int Shader::GetUniformLocation(const std::string& name) 
+int Shader::GetUniformLocation(const std::string& name) 
 {
 	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end()) {
 		return m_UniformLocationCache[name];
 	}
 
-	unsigned int location = glGetUniformLocation(m_RendererID, name.c_str());
+	int location = glGetUniformLocation(m_RendererID, name.c_str());
 	if (location == -1) {
 		std::cout << "Warning: uniform " << name << " does not exist." << std::endl;
 	}
@@ -106,9 +106,19 @@ void Shader::UnBind() const
 	glUseProgram(0);
 
 }
-
 void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 {
 	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+
+}
+
+void Shader::SetUniform1f(const std::string& name, float value)
+{
+	glUniform1f(GetUniformLocation(name), value);
+
+}
+void Shader::SetUniform1i(const std::string& name, int value)
+{
+	glUniform1i(GetUniformLocation(name), value);
 
 }

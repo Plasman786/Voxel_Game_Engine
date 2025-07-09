@@ -31,6 +31,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 //defining openGL name spaces inorder for them to support the program
 
 int main() {
+
 	glfwSetErrorCallback(error_callback); //if an error occurs the program detects it, this has to be set up first to debug
 	std::cout << "Hi" << std::endl;
 	glfwInit();//initialise glfw
@@ -61,25 +62,27 @@ int main() {
 	}
 
 	//data
-	float positions[18] = { //position data array of floats
-		 -0.5f, -0.5f, 0,//0
-		  0.5f, -0.5f, 0,//1
-		  0.5f,  0.5f, 0,//2
-		 -0.5f,  0.5f, 0,//3
-		  0.75f, -0.25f, 1,//4
-		  0.75f,  0.75f, 1 //5
+	float positions[20] = { //position data array of floats
+		 -0.5f, -0.5f, 0, 0.0f, 0.0f,//0
+		  0.5f, -0.5f, 0, 1.0f, 0.0f,//1
+		  0.5f,  0.5f, 0, 1.0f, 1.0f,//2
+		 -0.5f,  0.5f, 0, 0.0f, 1.0f //3
+
 	};
-	unsigned int indices[12]{ // index of the order that they are drawn in counter clock wise order
+	unsigned int indices[6]{ // index of the order that they are drawn in counter clock wise order
 		0, 1, 2,
 		2, 3, 0,
-		2, 4, 1,
-		4, 5, 2
 	};
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	VertexBuffer vb;
 	vb.VertexBufferAssign(positions, sizeof(positions)); //<----------------------------------------------//Vertex Buffer Call//---------------------
 	VertexArray va;
 	Layout layout;
 	layout.Push<float>(3);
+	layout.Push<float>(2);
+
 	vb.Bind();
 	va.AddArrayBuffer(layout);
 	IndexBuffer ib(indices, sizeof(indices) / sizeof(unsigned int)); //<----------------------------------------------//Index Buffer Call//------
@@ -92,6 +95,11 @@ int main() {
 	float incrementr = 0.03f;
 	float incrementg = 0.05f;
 	shader.SetUniform4f("u_Color", b, r, g, 1.0f);
+
+	Texture texture("Grass_Block_Sides.png");
+	texture.Bind();
+	shader.SetUniform1i("u_Texture", 0);
+
 	glfwSetKeyCallback(window, key_callback); // every cycle it checks for the keys function
 	Renderer renderer;
 

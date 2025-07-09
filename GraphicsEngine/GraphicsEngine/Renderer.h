@@ -17,6 +17,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Texture.h"
 #define ASIO_STANDALONE  // Enables standalone mode
 #include <asio.hpp>
 #include <thread>
