@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="NoiseGen.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Cpp\FastNoiseLite.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="NoiseGen.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Shader.h" />

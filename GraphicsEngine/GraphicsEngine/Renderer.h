@@ -27,6 +27,7 @@
 #define ASIO_STANDALONE  // Enables standalone mode
 #include <asio.hpp>
 #include <thread>
+#include "Camera.h"
 //-----------------------------------------------------
 //MACROS!
 #define ASSERT(x) if (!(x)) __debugbreak();
