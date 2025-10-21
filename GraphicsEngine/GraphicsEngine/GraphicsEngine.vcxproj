@@ -108,6 +108,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependancies\glew-2.1.0\include;$(SolutionDir)Dependancies\glfw-3.3.10\include;$(SolutionDir)Dependancies\glfw-3.3.10\deps;$(SolutionDir)GraphicsEngine\;$(SolutionDir)Dependancies\asio-1.30.2\include;src\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +130,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependancies\glew-2.1.0\include;$(SolutionDir)Dependancies\glfw-3.3.10\include;$(SolutionDir)Dependancies\glfw-3.3.10\deps;$(SolutionDir)GraphicsEngine\;$(SolutionDir)Dependancies\asio-1.30.2\include;src\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +146,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlockTextureManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeGen.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="NoiseGen.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -161,7 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Cpp\FastNoiseLite.h" />
+    <ClInclude Include="BlockTextureManager.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeGen.h" />
     <ClInclude Include="NoiseGen.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Shader.h" />

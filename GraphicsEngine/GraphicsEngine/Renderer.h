@@ -1,4 +1,5 @@
 #pragma once
+#define _WIN32_WINNT 0x0601
 #define GLFW_INCLUDE_NONE
 #include <GL/glew.h>      // Or glad, not both
 #include <GLFW/glfw3.h>   // Always after glew/glad
@@ -28,6 +29,13 @@
 #include <asio.hpp>
 #include <thread>
 #include "Camera.h"
+#include "json.hpp"
+#include "BlockTextureManager.h"
+#include <unordered_map>
+#include <stdexcept>
+#include "CubeGen.h"
+
+using json = nlohmann::json;
 //-----------------------------------------------------
 //MACROS!
 #define ASSERT(x) if (!(x)) __debugbreak();

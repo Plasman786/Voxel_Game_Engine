@@ -1,27 +1,84 @@
-#pragma once
 #include "Renderer.h"
+#include "NoiseGen.h"
+#include <cstdlib>  // for std::rand
+#include <ctime>    // for std::time
 
-NoiseGen::NoiseGen(int x, int z, NoiseGen::NoiseType noisetype) 
-    : x(x), noisetype(noisetype) {
-    
-    // Create and configure FastNoise object
+NoiseGen::NoiseGen(int x, int z, NoiseGen::NoiseType noisetype)
+    : x(x), z(z), noisetype(noisetype)
+{
     FastNoiseLite noise;
-    noise.SetNoiseType(NoiseGen::ConvertNoiseType(noisetype));
 
-    // Gather noise data
-    float noiseData[16][16];
-    int index = 0;
+    // Set seed for variability
+    noise.SetSeed(static_cast<int>(std::time(nullptr)));
+    noise.SetNoiseType(ConvertNoiseType(noisetype));
 
-    for (int z = 0; z < 16; z++)
-    {
-        for (int x = 0; x < 16; x++)
-        {
-            noiseData[x][z] = noise.GetNoise((float)x, (float)z);
+    noiseData.resize(z, std::vector<float>(x));
+
+    float frequency = 0.05f;   // lower = smoother, higher = rougher
+    float amplitude = 16.0f;   // scale heights for visibility
+
+    for (int i = 0; i < z; i++) {
+        for (int j = 0; j < x; j++) {
+            float n = noise.GetNoise(j * frequency, i * frequency); // [-1,1]
+            noiseData[i][j] = n * amplitude; // scale heights
         }
     }
 }
 
-NoiseGen::~NoiseGen()
-{
+void NoiseGen::Temp(int x, int z, NoiseGen::NoiseType noisetype) {
+    this->x = x;
+    this->z = z;
 
+    FastNoiseLite noise;
+    noise.SetSeed(static_cast<int>(std::time(nullptr)));
+    noise.SetNoiseType(ConvertNoiseType(noisetype));
+
+    temperatureData.resize(z, std::vector<float>(x));
+    float frequency = 0.05f;
+    float amplitude = 4.0f;
+
+    for (int i = 0; i < z; i++) {
+        for (int j = 0; j < x; j++) {
+            temperatureData[i][j] = noise.GetNoise(j * frequency, i * frequency) * amplitude;
+        }
+    }
+}
+
+void NoiseGen::Humidity(int x, int z, NoiseGen::NoiseType noisetype) {
+    this->x = x;
+    this->z = z;
+
+    FastNoiseLite noise;
+    noise.SetSeed(static_cast<int>(std::time(nullptr)));
+    noise.SetNoiseType(ConvertNoiseType(noisetype));
+
+    humidityData.resize(z, std::vector<float>(x));
+    float frequency = 0.05f;
+    float amplitude = 1.0f;
+
+    for (int i = 0; i < z; i++) {
+        for (int j = 0; j < x; j++) {
+            humidityData[i][j] = noise.GetNoise(j * frequency, i * frequency) * amplitude;
+        }
+    }
+}
+
+void NoiseGen::Height(int x, int z, NoiseGen::NoiseType noisetype) {
+    this->x = x;
+    this->z = z;
+
+    FastNoiseLite noise;
+    noise.SetSeed(static_cast<int>(std::time(nullptr)));
+    noise.SetNoiseType(ConvertNoiseType(noisetype));
+
+    heightData.resize(z, std::vector<float>(x));
+    float frequency = 0.05f;
+    float amplitude = 16.0f;
+
+    for (int i = 0; i < z; i++) {
+        for (int j = 0; j < x; j++) {
+            float n = noise.GetNoise(j * frequency, i * frequency);
+            heightData[i][j] = n * amplitude;
+        }
+    }
 }

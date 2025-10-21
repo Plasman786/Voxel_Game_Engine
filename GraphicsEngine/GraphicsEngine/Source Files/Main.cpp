@@ -2,6 +2,7 @@
 //-----------------------------------------------------
 #define GLAD_GL_IMPLEMENTATION
 #define GLFW_INCLUDE_NONE
+
 //-----------------------------------------------------
 class VertexBuffer;
 class VertexBufferLayout;
@@ -96,30 +97,157 @@ int main() {
 	}
 
 	//data
-	float positions[20] = { //position data array of floats
-		 -0.5f, -0.5f, 0, 0.0f, 0.0f,//0
-		  0.5f, -0.5f, 0, 1.0f, 0.0f,//1
-		  0.5f,  0.5f, 0, 1.0f, 1.0f,//2
-		 -0.5f,  0.5f, 0, 0.0f, 1.0f //3
+	//float positions[20] = { //position data array of floats
+	//	 -0.5f, -0.5f, 0, 0.0f, 0.0f,//0
+	//	  0.5f, -0.5f, 0, 1.0f, 0.0f,//1
+	//	  0.5f,  0.5f, 0, 1.0f, 1.0f,//2
+	//	 -0.5f,  0.5f, 0, 0.0f, 1.0f //3
+	//
+	//};
+	//unsigned int indices[6]{ // index of the order that they are drawn in counter clock wise order
+	//	0, 1, 2,
+	//	2, 3, 0,
+	//};
+	// Each vertex: x, y, z, u, v
+	//float positions[] = {
+	//	// Front face
+	//	-0.5f, -0.5f,  0.5f, 0.0f, 0.0f,  // 0
+	//	 0.5f, -0.5f,  0.5f, 1.0f, 0.0f,  // 1
+	//	 0.5f,  0.5f,  0.5f, 1.0f, 1.0f,  // 2
+	//	-0.5f,  0.5f,  0.5f, 0.0f, 1.0f,  // 3
+	//
+	//	// Back face
+	//	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,  // 4
+	//	 0.5f, -0.5f, -0.5f, 1.0f, 0.0f,  // 5
+	//	 0.5f,  0.5f, -0.5f, 1.0f, 1.0f,  // 6
+	//	-0.5f,  0.5f, -0.5f, 0.0f, 1.0f   // 7
+	//};
+	//
+	//// Index order for 12 triangles (two per cube face)
+	//unsigned int indices[] = {
+	//	// Front
+	//	0, 1, 2,
+	//	2, 3, 0,
+	//
+	//	// Right
+	//	1, 5, 6,
+	//	6, 2, 1,
+	//
+	//	// Back
+	//	5, 4, 7,
+	//	7, 6, 5,
+	//
+	//	// Left
+	//	4, 0, 3,
+	//	3, 7, 4,
+	//
+	//	// Top
+	//	3, 2, 6,
+	//	6, 7, 3,
+	//
+	//	// Bottom
+	//	4, 5, 1,
+	//	1, 0, 4
+	//};
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//
+	//VertexBuffer vb;
+	//vb.VertexBufferAssign(positions, sizeof(positions)); //<----------------------------------------------//Vertex Buffer Call//---------------------
+	//VertexArray va;
+	//Layout layout;
+	//layout.Push<float>(3);
+	//layout.Push<float>(2);
+	//
+	//vb.Bind();
+	//va.AddArrayBuffer(layout);
+	//IndexBuffer ib(indices, sizeof(indices) / sizeof(unsigned int)); //<----------------------------------------------//Index Buffer Call//------
+	// ------------------- CubeGen setup -------------------
 
-	};
-	unsigned int indices[6]{ // index of the order that they are drawn in counter clock wise order
-		0, 1, 2,
-		2, 3, 0,
-	};
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//XXXXXXXXXXXXXXXXXXXXXXXX
+
+	//BlockTextureManager manager;
+	//
+	//manager.loadFromFile("Block_Textures.json");
+	//
+	//CubeGen cube(0.0f, 0.0f, 0.0f, "grass", manager);
+	//auto verts = cube.getVertices();
+	//
+	//VertexBuffer vb;
+	//vb.VertexBufferAssign(verts.data(), verts.size() * sizeof(Vertex));
+	//
+	//VertexArray va;
+	//Layout layout;
+	//layout.Push<float>(3); // x,y,z
+	//layout.Push<float>(2); // u,v
+	//vb.Bind();
+	//va.AddArrayBuffer(layout);
+	//
+	//std::vector<unsigned int> indices(verts.size());
+	//for (size_t i = 0; i < verts.size(); i++)
+	//	indices[i] = i;
+	//IndexBuffer ib(indices.data(), indices.size());
+	// 
+	// 
+		//XXXXXXTEST
+// World setup
+	std::string worldSeed = "12345"; // example seed
+	std::string worldFolder = "world_" + worldSeed;
+
+	// Create/load chunks
+	VertexData chunk0(0, worldFolder);
+	VertexData chunk1(1, worldFolder);
+
+	std::cout << "Chunk 0 blocks: " << chunk0.getBlocks().size() << std::endl;
+	std::cout << "Chunk 1 blocks: " << chunk1.getBlocks().size() << std::endl;
+
+	//XXXXXXX
+	//XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	BlockTextureManager manager;
+	manager.loadFromFile("Block_Textures.json");
+
+	std::vector<Vertex> allVerts;
+	std::vector<unsigned int> allIndices;
+
+	std::vector<VertexData*> chunks = { &chunk0, &chunk1 };
+	for (auto* chunk : chunks) {
+		for (const auto& block : chunk->getBlocks()) {
+			std::string blockName = "grass"; // map type -> name if needed
+			CubeGen cube((float)block.x, (float)block.y, (float)block.z, blockName, manager);
+			const auto& verts = cube.getVertices();
+
+			// Optionally, print some vertices to check
+			//for (const auto& v : verts) {
+			//	std::cout << v.x << "," << v.y << "," << v.z << " | " << v.u << "," << v.v << std::endl;
+			//}
+
+			size_t baseIndex = allVerts.size();
+			allVerts.insert(allVerts.end(), verts.begin(), verts.end());
+
+			for (size_t i = 0; i < verts.size(); i++)
+				allIndices.push_back((unsigned int)(baseIndex + i));
+		}
+	}
+
+	// Now create buffers with all chunk cubes
 	VertexBuffer vb;
-	vb.VertexBufferAssign(positions, sizeof(positions)); //<----------------------------------------------//Vertex Buffer Call//---------------------
+	vb.VertexBufferAssign(allVerts.data(), allVerts.size() * sizeof(Vertex));
+
 	VertexArray va;
 	Layout layout;
-	layout.Push<float>(3);
-	layout.Push<float>(2);
-
+	layout.Push<float>(3); // x,y,z
+	layout.Push<float>(2); // u,v
 	vb.Bind();
 	va.AddArrayBuffer(layout);
-	IndexBuffer ib(indices, sizeof(indices) / sizeof(unsigned int)); //<----------------------------------------------//Index Buffer Call//------
+
+	IndexBuffer ib(allIndices.data(), allIndices.size());
+
+
+	//XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+
 
 	glm::mat4 proj = glm::ortho(-1.0f,1.0f,-1.0f,1.0f,-1.0f,1.0f);
 
@@ -136,14 +264,21 @@ int main() {
 	shader.SetUniformMat4f("u_MVP", proj);
 
 
-	Texture texture("Grass_Block_Sides.png");
-	texture.Bind();
 
+
+	
+
+
+	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+	Texture texture("BlockAtlas1.png");
+	texture.Bind();
+	
 	shader.SetUniform1i("u_Texture", 0);
 
 	glfwSetKeyCallback(window, key_callback); // every cycle it checks for the keys function
 	Renderer renderer;
-
+	glEnable(GL_DEPTH_TEST);
 
 
 	while (!glfwWindowShouldClose(window)) {
