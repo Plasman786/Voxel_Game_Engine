@@ -4,9 +4,7 @@ A work-in-progress voxel-based 3D engine built from scratch in C++ using OpenGL 
 
 ## Demo
 
-[![Watch the Voxel Game Engine demonstration](https://img.youtube.com/vi/NWVsTFaAgAE/hqdefault.jpg)](https://youtu.be/NWVsTFaAgAE)
-
-[Watch the demonstration on YouTube](https://youtu.be/NWVsTFaAgAE)
+[Watch the demonstration on YouTube](https://youtu.be/ijQAvhqsCRE)
 
 ## Features
 
